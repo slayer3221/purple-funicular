@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arvita Tripati | AI operating models for regulated healthcare</title>
+<meta name="description" content="Arvita Tripati, founder of Vahana Labs, helps healthcare and regulated health leaders decide which AI bets to make, how to govern them, what can be claimed, and what operating model turns AI activity into business value.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   PALETTE - matched to vahanalabs.ai
+   ========================================================================== */
+:root {
+  --ink: #00323d;
+  --ink-light: #47727b;
+  --ink-muted: #5e8a93;
+  --cream: #f0f7f8;
+  --cream-dark: #dceef1;
+  --warm-bg: #fff8ed;
+  --teal: #007d99;
+  --teal-hover: #009dba;
+  --accent: #ee4266;
+  --accent-hover: #f2657f;
+  --gold: #ffc759;
+  --highlight: #fff1d5;
+  --white: #ffffff;
+  --border: rgba(0,50,61,0.12);
+  --border-strong: rgba(0,50,61,0.2);
+  --font-display: 'Lora', Georgia, serif;
+  --font-body: 'Open Sans', 'Segoe UI', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  padding-top: 56px;
+}
+
+/* --- UTILITY --- */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+.container--narrow { max-width: 860px; }
+.section { padding: 5rem 0; }
+.section--tight { padding: 3.5rem 0; }
+.section--cream { background: var(--cream); border-top: 1px solid var(--border); }
+.section--white { background: var(--white); }
+
+/* --- FADE-IN --- */
+.fade-up { opacity: 0; transform: translateY(24px); animation: fadeUpFallback 0s 1.5s forwards; }
+.fade-up.is-visible {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out; animation: none;
+}
+@keyframes fadeUpFallback { to { opacity: 1; transform: translateY(0); } }
+
+/* ==========================================================================
+   NAV
+   ========================================================================== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(240,247,248,0.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 0; transition: box-shadow 0.3s;
+}
+.nav--scrolled { box-shadow: 0 2px 24px rgba(0,50,61,0.06); }
+.nav .container { display: flex; justify-content: space-between; align-items: center; }
+.nav__links { display: flex; align-items: center; gap: 1.5rem; }
+.nav__link {
+  font-size: 0.9rem; font-weight: 500; color: var(--ink-light);
+  text-decoration: none; transition: color 0.2s; position: relative;
+}
+.nav__link:hover { color: var(--teal); }
+.nav__link--active { color: var(--ink); }
+.nav__link--active::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -0.4rem;
+  height: 2px; background: var(--gold); border-radius: 1px;
+}
+.nav__link--ext::after { content: ' \2197'; font-size: 0.78em; color: var(--ink-muted); }
+.nav__brand { display: flex; flex-direction: column; line-height: 1.1; text-decoration: none; }
+.nav__brand-name { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--ink); }
+.nav__brand-sub { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-top: 0.1rem; }
+.nav__cta { font-size: 0.85rem; padding: 0.55rem 1.25rem; }
+@media (max-width: 800px) { .nav__link--hide { display: none; } }
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn {
+  display: inline-block; padding: 0.85rem 2rem;
+  background: var(--teal); color: var(--white); text-decoration: none;
+  font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
+  letter-spacing: 0.02em; border-radius: 6px; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn:hover { background: var(--teal-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,125,153,0.2); }
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.btn--accent { background: var(--accent); }
+.btn--accent:hover { background: var(--accent-hover); box-shadow: 0 4px 16px rgba(238,66,102,0.2); }
+.btn--ghost { background: transparent; color: var(--teal); border: 1px solid var(--border-strong); box-shadow: none; }
+.btn--ghost:hover { background: rgba(0,125,153,0.06); color: var(--teal-hover); box-shadow: none; }
+.btn--light { background: var(--white); color: var(--ink); }
+.btn--light:hover { background: var(--cream); color: var(--ink); }
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero { padding: 6rem 0 4.5rem; position: relative; overflow: hidden; background: var(--white); }
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(0,125,153,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(255,199,89,0.06) 0%, transparent 50%);
+  z-index: 0;
+}
+.hero .container { position: relative; z-index: 1; max-width: 880px; }
+.hero__eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem; }
+.hero h1 { font-family: var(--font-display); font-size: 3rem; line-height: 1.15; color: var(--ink); margin-bottom: 1.5rem; font-weight: 600; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero__sub { font-size: 1.1rem; color: var(--ink-light); line-height: 1.7; margin-bottom: 1.75rem; max-width: 660px; }
+.hero__buttons { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+.hero__cred { margin-top: 1.75rem; max-width: 700px; font-size: 0.85rem; color: var(--ink-muted); line-height: 1.65; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.hero__cred strong { color: var(--ink-light); font-weight: 600; }
+
+/* ==========================================================================
+   BRIDGE
+   ========================================================================== */
+.bridge { text-align: center; padding: 3rem 0; background: var(--highlight); border-bottom: 1px solid rgba(255,199,89,0.3); }
+.bridge__text { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--ink); line-height: 1.55; max-width: 760px; margin: 0 auto; }
+.bridge__text strong { color: var(--accent); font-weight: 600; }
+
+/* ==========================================================================
+   PROBLEM (dark)
+   ========================================================================== */
+.problem { background: var(--ink); color: var(--cream); }
+.problem h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 600; margin-bottom: 1rem; color: var(--white); }
+.problem__intro { font-size: 1.05rem; color: rgba(240,247,248,0.7); margin-bottom: 2rem; max-width: 680px; }
+.problem__label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.problem__points { display: grid; gap: 1.5rem; max-width: 780px; }
+.problem__point { font-size: 1rem; color: rgba(240,247,248,0.85); padding-left: 1.25rem; border-left: 2px solid var(--accent); line-height: 1.6; }
+.problem__point strong { display: block; margin-bottom: 0.3rem; color: var(--white); font-weight: 600; font-size: 1.05rem; }
+.problem__coda { margin-top: 2.5rem; font-size: 1.05rem; color: var(--white); font-weight: 600; max-width: 680px; }
+.problem__roles { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 2.5rem; max-width: 720px; margin-bottom: 2rem; }
+.problem__role { font-size: 0.97rem; color: rgba(240,247,248,0.85); padding-left: 1.3rem; position: relative; }
+.problem__role::before { content: ''; position: absolute; left: 0; top: 0.7rem; width: 7px; height: 7px; border-radius: 2px; background: var(--gold); }
+.problem__role strong { color: var(--white); font-weight: 600; }
+
+/* ==========================================================================
+   QUALIFIER CARDS
+   ========================================================================== */
+.cards { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.cards__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.card { padding: 2.5rem 0; }
+.card:first-child { border-right: 1px solid var(--border); padding-right: 2.5rem; }
+.card:last-child { padding-left: 2.5rem; }
+.card h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--ink); }
+.card__quals { list-style: none; }
+.card__quals li { padding: 0.45rem 0 0.45rem 1.6rem; font-size: 0.95rem; color: var(--ink-light); position: relative; }
+.card__quals li::before { content: ''; position: absolute; left: 0; top: 0.95rem; width: 8px; height: 8px; border-radius: 2px; }
+.card--yes .card__quals li::before { background: var(--teal); }
+.card--no .card__quals li::before { background: var(--accent); }
+
+/* ==========================================================================
+   SECTION HEADER (shared)
+   ========================================================================== */
+.curriculum__header { text-align: center; margin-bottom: 2.5rem; }
+.curriculum__header h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 600; margin-bottom: 0.75rem; }
+.curriculum__intro { max-width: 680px; margin: 0 auto; color: var(--ink-light); font-size: 1rem; }
+
+/* ==========================================================================
+   ACCORDION
+   ========================================================================== */
+.curriculum__accordion { max-width: 860px; margin: 0 auto; }
+.accordion { border-top: 1px solid var(--border); }
+.accordion:last-child { border-bottom: 1px solid var(--border); }
+.accordion__trigger {
+  width: 100%; display: grid; grid-template-columns: 1fr 20px; align-items: start; gap: 1rem;
+  text-align: left; background: none; border: none; padding: 1.25rem 0.5rem; cursor: pointer;
+  font-family: var(--font-body); border-radius: 4px; transition: background 0.2s;
+}
+.accordion__trigger:hover { background: rgba(0,125,153,0.04); }
+.accordion__trigger:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.accordion__week { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 0.35rem; }
+.accordion__title { display: block; font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; transition: color 0.2s; font-family: var(--font-display); }
+.accordion__trigger:hover .accordion__title { color: var(--teal); }
+.accordion__quote { display: block; font-size: 0.9rem; font-style: italic; color: var(--ink-muted); line-height: 1.5; }
+.accordion__chevron { width: 20px; height: 20px; margin-top: 4px; transition: transform 0.3s ease; flex-shrink: 0; color: var(--ink-muted); }
+.accordion__chevron line { stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.accordion--open .accordion__chevron { transform: rotate(180deg); }
+.accordion__body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.accordion--open .accordion__body { max-height: 1200px; padding-bottom: 1.5rem; }
+.accordion__content { font-size: 0.95rem; color: var(--ink-light); line-height: 1.7; padding: 0 0.5rem; }
+.accordion__content strong { color: var(--ink); font-weight: 600; }
+.accordion__content p { margin-bottom: 0.75rem; }
+.accordion__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 0.5rem; }
+.accordion__cols h4 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.6rem; }
+.accordion__cols ul { list-style: none; }
+.accordion__cols li { padding: 0.25rem 0 0.25rem 1.3rem; position: relative; font-size: 0.92rem; color: var(--ink-light); }
+.accordion__cols li::before { content: ''; position: absolute; left: 0; top: 0.7rem; width: 6px; height: 6px; border-radius: 2px; background: var(--teal); }
+.accordion__deliverable { margin-top: 1rem; padding: 0.9rem 1.25rem; background: var(--highlight); border-radius: 6px; font-size: 0.9rem; border-left: 3px solid var(--gold); }
+.accordion__deliverable strong { color: var(--ink); }
+
+/* ==========================================================================
+   OUTPUTS
+   ========================================================================== */
+.outputs { background: var(--white); }
+.outputs h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 600; margin-bottom: 0.75rem; text-align: center; }
+.outputs__intro { max-width: 680px; margin: 0 auto 2.5rem; color: var(--ink-light); text-align: center; }
+.outputs__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; max-width: 860px; margin: 0 auto; }
+.output { padding: 1.4rem 1.6rem; background: var(--cream); border-radius: 8px; border-left: 3px solid var(--teal); }
+.output__name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
+.output__note { font-size: 0.9rem; color: var(--ink-light); line-height: 1.55; }
+
+/* ==========================================================================
+   PROOF BAR
+   ========================================================================== */
+.proof { background: var(--warm-bg); border-top: 1px solid rgba(255,199,89,0.25); border-bottom: 1px solid rgba(255,199,89,0.25); }
+.proof__grid { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; gap: 2rem; }
+.proof__num { font-family: var(--font-display); font-size: 3.5rem; color: var(--ink); line-height: 1; margin-bottom: 0.5rem; font-weight: 700; }
+.proof__num--text { font-size: 1.6rem; line-height: 1.15; }
+.proof__label { font-size: 0.9rem; color: var(--ink-light); line-height: 1.5; max-width: 240px; margin: 0 auto; }
+.proof__grid--four { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
+.proof__grid--four .proof__num { font-size: 2.5rem; }
+
+/* ==========================================================================
+   ABOUT / WHY / FACULTY (prose blocks)
+   ========================================================================== */
+.about { background: var(--white); }
+.about h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 600; margin-bottom: 1.5rem; }
+.about__body { max-width: 760px; font-size: 1rem; color: var(--ink-light); line-height: 1.75; }
+.about__body p { margin-bottom: 1rem; }
+.about__body p:last-child { margin-bottom: 0; }
+.about__body strong { color: var(--ink); font-weight: 600; }
+.about__translate { list-style: none; max-width: 760px; margin: 1.5rem 0 0; columns: 2; column-gap: 2.5rem; }
+.about__translate li { break-inside: avoid; padding: 0.35rem 0 0.35rem 1.3rem; position: relative; font-size: 0.95rem; color: var(--ink-light); }
+.about__translate li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 7px; height: 2px; background: var(--gold); }
+
+/* ==========================================================================
+   PILLARS / QUESTION GRID
+   ========================================================================== */
+.qgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; max-width: 1020px; margin: 0 auto; }
+.pillar { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
+.pillar--q { border-top: 3px solid var(--teal); }
+.pillar h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem; line-height: 1.3; }
+.pillar__desc { font-size: 0.93rem; color: var(--ink-light); line-height: 1.6; margin-bottom: 1.1rem; }
+.pillar__desc:last-child { margin-bottom: 0; }
+.pillar__list { list-style: none; }
+.pillar__list li { padding: 0.3rem 0 0.3rem 1.3rem; position: relative; font-size: 0.88rem; color: var(--ink-light); }
+.pillar__list li::before { content: ''; position: absolute; left: 0; top: 0.7rem; width: 6px; height: 6px; border-radius: 2px; background: var(--teal); }
+.pillar__meta { margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--ink-muted); }
+.pillar__meta strong { color: var(--ink-light); font-weight: 600; }
+
+/* ==========================================================================
+   WAYS TO WORK (4-up route cards)
+   ========================================================================== */
+.ways__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+.way { display: block; text-decoration: none; padding: 1.75rem; background: var(--cream); border-radius: 10px; border-left: 3px solid var(--teal); transition: transform 0.15s, box-shadow 0.2s; }
+.way:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,50,61,0.07); }
+.way__verb { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.5rem; }
+.way__name { font-family: var(--font-display); font-size: 1.12rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.3; }
+.way__desc { font-size: 0.88rem; color: var(--ink-light); line-height: 1.55; }
+
+/* ==========================================================================
+   PRIMARY ENTRY (featured engagement)
+   ========================================================================== */
+.entry { background: var(--cream); border-top: 1px solid var(--border); }
+.entry__card { max-width: 960px; margin: 0 auto; background: var(--white); border: 1px solid var(--teal); border-radius: 14px; overflow: hidden; box-shadow: 0 16px 50px rgba(0,50,61,0.08); display: grid; grid-template-columns: 1.2fr 1fr; }
+.entry__main { padding: 2.5rem; }
+.entry__tier { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; }
+.entry__name { font-family: var(--font-display); font-size: 1.85rem; font-weight: 600; color: var(--ink); margin-bottom: 1rem; line-height: 1.2; }
+.entry__desc { font-size: 0.97rem; color: var(--ink-light); line-height: 1.7; margin-bottom: 1.5rem; }
+.entry__best { font-size: 0.9rem; color: var(--ink-light); padding: 1rem 1.25rem; background: var(--highlight); border-radius: 8px; border-left: 3px solid var(--gold); margin-bottom: 1.5rem; }
+.entry__best strong { color: var(--ink); }
+.entry__side { padding: 2.5rem; background: var(--ink); color: var(--cream); }
+.entry__side h3 { font-family: var(--font-display); font-size: 1.15rem; color: var(--white); margin-bottom: 1.1rem; }
+.entry__side ul { list-style: none; }
+.entry__side li { padding: 0.5rem 0 0.5rem 1.6rem; position: relative; font-size: 0.92rem; color: rgba(240,247,248,0.85); border-top: 1px solid rgba(240,247,248,0.1); }
+.entry__side li:first-child { border-top: none; }
+.entry__side li::before { content: ''; position: absolute; left: 0; top: 0.95rem; width: 9px; height: 6px; border-left: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(-45deg); }
+
+/* ==========================================================================
+   APPLIES (where this work applies)
+   ========================================================================== */
+.applies { background: var(--white); }
+.applies__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+.applies__item { padding: 1.6rem; border: 1px solid var(--border); border-radius: 10px; background: var(--cream); }
+.applies__tag { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem; }
+.applies__name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+.applies__desc { font-size: 0.88rem; color: var(--ink-light); line-height: 1.55; }
+
+/* ==========================================================================
+   BOOK
+   ========================================================================== */
+.book { background: var(--highlight); border-top: 1px solid rgba(255,199,89,0.35); border-bottom: 1px solid rgba(255,199,89,0.35); }
+.book__inner { max-width: 820px; margin: 0 auto; text-align: center; }
+.book__label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.book__title { font-family: var(--font-display); font-size: 2.1rem; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 0.35rem; }
+.book__sub { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--ink-light); margin-bottom: 1.5rem; }
+.book__body { font-size: 1.02rem; color: var(--ink-light); line-height: 1.75; max-width: 700px; margin: 0 auto 1.25rem; }
+.book__body strong { color: var(--ink); font-weight: 600; }
+.book__meta { font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 1.75rem; }
+
+/* ==========================================================================
+   QA (common situations)
+   ========================================================================== */
+.qa { max-width: 820px; margin: 0 auto; }
+.qa__item { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+.qa__item:last-child { border-bottom: 1px solid var(--border); }
+.qa__q { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem; font-style: italic; }
+.qa__a { font-size: 0.97rem; color: var(--ink-light); line-height: 1.7; }
+
+/* ==========================================================================
+   FORMATS (speaking)
+   ========================================================================== */
+.format__meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--ink-muted); }
+.format__meta span strong { color: var(--ink-light); font-weight: 600; }
+
+/* ==========================================================================
+   VAHANA HANDOFF
+   ========================================================================== */
+.handoff { background: var(--ink); color: var(--cream); }
+.handoff__inner { max-width: 820px; margin: 0 auto; text-align: center; }
+.handoff__label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.handoff h2 { font-family: var(--font-display); font-size: 1.85rem; font-weight: 600; color: var(--white); margin-bottom: 1rem; line-height: 1.3; }
+.handoff p { font-size: 1.02rem; color: rgba(240,247,248,0.78); line-height: 1.7; max-width: 680px; margin: 0 auto 1.75rem; }
+.handoff p strong { color: var(--white); font-weight: 600; }
+
+/* ==========================================================================
+   CTA (dark)
+   ========================================================================== */
+.cta { background: var(--ink); color: var(--cream); text-align: center; }
+.cta h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 600; margin-bottom: 1rem; color: var(--white); }
+.cta p { font-size: 1.05rem; color: rgba(240,247,248,0.7); margin: 0 auto 2rem; max-width: 600px; }
+.cta__buttons { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer { padding: 2.5rem 0; text-align: center; font-size: 0.85rem; color: rgba(240,247,248,0.5); border-top: 1px solid rgba(240,247,248,0.08); background: var(--ink); }
+.footer__name { font-weight: 600; color: rgba(240,247,248,0.8); margin-bottom: 0.25rem; }
+.footer__email { margin-bottom: 1rem; }
+.footer__email a { color: var(--teal-hover); text-decoration: none; }
+.footer__email a:hover { text-decoration: underline; }
+.footer__links { margin-bottom: 1rem; }
+.footer__links a { color: rgba(240,247,248,0.5); text-decoration: none; margin: 0 0.75rem; transition: color 0.2s; }
+.footer__links a:hover { color: var(--teal-hover); }
+.footer__links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+  html { font-size: 16px; }
+  .hero h1 { font-size: 2.25rem; }
+  .cards__grid { grid-template-columns: 1fr; }
+  .card:first-child { border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 2rem; }
+  .card:last-child { padding-left: 0; padding-top: 2rem; }
+  .proof__grid { grid-template-columns: 1fr; }
+  .proof__grid--four { grid-template-columns: 1fr 1fr; }
+  .problem__roles { grid-template-columns: 1fr; }
+  .outputs__grid { grid-template-columns: 1fr; }
+  .ways__grid { grid-template-columns: 1fr 1fr; }
+  .entry__card { grid-template-columns: 1fr; }
+  .applies__grid { grid-template-columns: 1fr 1fr; }
+  .accordion__cols { grid-template-columns: 1fr; }
+  .about__translate { columns: 1; }
+}
+@media (max-width: 560px) {
+  .ways__grid { grid-template-columns: 1fr; }
+  .applies__grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; animation: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="index.html" class="nav__brand">
+      <span class="nav__brand-name">Arvita Tripati</span>
+      <span class="nav__brand-sub">Founder, Vahana Labs</span>
+    </a>
+    <div class="nav__links">
+      <a href="advisory.html" class="nav__link nav__link--hide">Advisory</a>
+      <a href="speaking.html" class="nav__link nav__link--hide">Speaking &amp; media</a>
+      <a href="index.html#book" class="nav__link nav__link--hide">The book</a>
+      <a href="https://vahanalabs.ai" class="nav__link nav__link--hide nav__link--ext">Vahana Labs</a>
+      <a href="mailto:arvita@vahanalabs.ai?subject=Executive%20advisory" class="btn nav__cta">Discuss advisory</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="hero__eyebrow fade-up">Arvita Tripati &middot; Founder, Vahana Labs</p>
+    <h1 class="fade-up">AI is easy to pilot. Hard to make <em>operational.</em></h1>
+    <p class="hero__sub fade-up">Healthcare companies are under pressure to do something meaningful with AI. Many are stuck between fear of missing out and fear of messing up. I help healthcare and regulated health leaders decide which AI bets to make, how to govern them, what can be claimed, and what operating model is needed to turn AI activity into business value.</p>
+    <div class="hero__buttons fade-up">
+      <a href="mailto:arvita@vahanalabs.ai?subject=Executive%20advisory" class="btn btn--accent">Discuss executive advisory</a>
+      <a href="#help" class="btn btn--ghost">See how I help</a>
+    </div>
+    <p class="hero__cred fade-up"><strong>Product and compliance executive</strong> with nearly two decades in regulated healthcare technology. 30+ regulated products shipped or scaled across AI, SaMD, diagnostics, clinical trials, privacy, security, and data governance.</p>
+  </div>
+</section>
+
+<!-- CREDIBILITY STRIP -->
+<section class="proof section--tight">
+  <div class="container">
+    <div class="proof__grid proof__grid--four fade-up">
+      <div><div class="proof__num">18+</div><div class="proof__label">years in regulated healthcare technology</div></div>
+      <div><div class="proof__num">30+</div><div class="proof__label">regulated products shipped or scaled</div></div>
+      <div><div class="proof__num proof__num--text">AI &middot; SaMD<br>Diagnostics</div><div class="proof__label">across clinical trials, privacy, security, and data governance</div></div>
+      <div><div class="proof__num proof__num--text">Vahana<br>Labs</div><div class="proof__label">founder of the regulated healthtech commercialization practice</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE EXECUTIVE PROBLEM (dark) -->
+<section class="problem section">
+  <div class="container">
+    <div class="problem__label fade-up">The executive problem</div>
+    <h2 class="fade-up">Most companies are not short on AI ideas. They are short on operating clarity.</h2>
+    <p class="problem__intro fade-up">AI shows up everywhere at once, and every function sees a different version of it.</p>
+    <div class="problem__roles fade-up">
+      <div class="problem__role"><strong>Product</strong> wants roadmap clarity.</div>
+      <div class="problem__role"><strong>Operations</strong> wants efficiency.</div>
+      <div class="problem__role"><strong>Data teams</strong> see opportunity.</div>
+      <div class="problem__role"><strong>Commercial</strong> wants a stronger story.</div>
+      <div class="problem__role"><strong>Legal, compliance, privacy, security, quality, clinical, regulatory</strong> see risk.</div>
+      <div class="problem__role"><strong>The board</strong> wants to know what it all adds up to.</div>
+    </div>
+    <div class="problem__points fade-up">
+      <div class="problem__point">Without a practical operating model, AI becomes pilots, vendor tools, roadmap debates, approval bottlenecks, unsupported claims, and unclear ownership.</div>
+    </div>
+    <p class="problem__coda fade-up">The cost: wasted AI spend, slower adoption, weak board confidence, and teams spending months on use cases that should never have made the roadmap.</p>
+  </div>
+</section>
+
+<!-- WHAT I HELP LEADERS DECIDE -->
+<section class="section section--cream" id="help">
+  <div class="container">
+    <div class="curriculum__header fade-up">
+      <h2>What I help leaders decide</h2>
+      <p class="curriculum__intro">Five questions that decide whether AI becomes capability or just activity.</p>
+    </div>
+    <div class="qgrid fade-up">
+      <div class="pillar pillar--q"><h3>Which AI bets are worth making?</h3><p class="pillar__desc">Evaluate use cases on workflow value, data readiness, risk, evidence burden, commercial potential, and organizational feasibility.</p></div>
+      <div class="pillar pillar--q"><h3>Build, buy, partner, or avoid?</h3><p class="pillar__desc">Decide where AI should become product capability, internal tooling, workflow automation, services support, vendor partnership, or a future option.</p></div>
+      <div class="pillar pillar--q"><h3>What can the company responsibly claim?</h3><p class="pillar__desc">Pressure-test product, workflow, clinical, operational, economic, and AI claims against evidence, buyer expectations, regulatory posture, and enterprise review.</p></div>
+      <div class="pillar pillar--q"><h3>How should AI decisions get made?</h3><p class="pillar__desc">Define decision rights, review cadence, governance forums, escalation paths, and executive oversight.</p></div>
+      <div class="pillar pillar--q"><h3>What will buyers, boards, and investors believe?</h3><p class="pillar__desc">Identify the proof, controls, narrative, and operating discipline needed for AI value to survive scrutiny.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIMARY ENTRY -->
+<section class="entry section">
+  <div class="container">
+    <div class="curriculum__header fade-up">
+      <h2>Where most engagements start</h2>
+      <p class="curriculum__intro">A focused paid discovery engagement for leaders who need clarity before committing to a larger AI effort.</p>
+    </div>
+    <div class="entry__card fade-up">
+      <div class="entry__main">
+        <div class="entry__tier">Primary entry point</div>
+        <div class="entry__name">AI Operating Model Discovery</div>
+        <p class="entry__desc">I interview key leaders, review current AI initiatives and decision processes, identify the highest-friction gaps, and provide an executive readout with observations and recommended next steps.</p>
+        <div class="entry__best"><strong>Best for:</strong> CEOs, executive teams, investors, or boards that need a clear read before investing more time, capital, or political energy into AI.</div>
+        <a href="mailto:arvita@vahanalabs.ai?subject=AI%20Operating%20Model%20Discovery" class="btn btn--accent">Discuss AI Operating Model Discovery</a>
+      </div>
+      <div class="entry__side">
+        <h3>Typical outputs</h3>
+        <ul>
+          <li>AI opportunity and risk map</li>
+          <li>Operating model gap assessment</li>
+          <li>Decision-rights observations</li>
+          <li>Claims, evidence, and governance considerations</li>
+          <li>Recommended next steps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAYS TO WORK -->
+<section class="section section--white">
+  <div class="container">
+    <div class="curriculum__header fade-up">
+      <h2>Ways to work together</h2>
+      <p class="curriculum__intro">From a first read to ongoing senior judgment. <a href="advisory.html">See full advisory detail.</a></p>
+    </div>
+    <div class="ways__grid fade-up">
+      <a class="way" href="advisory.html#discovery"><div class="way__verb">Diagnose</div><div class="way__name">AI Operating Model Discovery</div><div class="way__desc">Find where AI strategy, data readiness, governance, and organizational capability are breaking down.</div></a>
+      <a class="way" href="advisory.html#sprint"><div class="way__verb">Design</div><div class="way__name">90-Day Operating Model Sprint</div><div class="way__desc">Define how AI is selected, prioritized, reviewed, governed, productized, commercialized, monitored, and reported.</div></a>
+      <a class="way" href="advisory.html#fractional"><div class="way__verb">Advise</div><div class="way__name">Fractional Executive Advisory</div><div class="way__desc">Ongoing senior judgment as AI moves from roadmap to market, workflow, or enterprise deployment.</div></a>
+      <a class="way" href="advisory.html#board"><div class="way__verb">Evaluate</div><div class="way__name">Board, Investor &amp; Diligence Advisory</div><div class="way__desc">Separate AI promise from AI operating reality.</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE THIS WORK APPLIES -->
+<section class="applies section">
+  <div class="container">
+    <div class="curriculum__header fade-up"><h2>Where this work applies</h2></div>
+    <div class="applies__grid fade-up">
+      <div class="applies__item"><div class="applies__tag">The product</div><div class="applies__name">What you sell</div><div class="applies__desc">AI changes what the company sells, claims, validates, supports, or commercializes.</div></div>
+      <div class="applies__item"><div class="applies__tag">The workflow</div><div class="applies__name">How work gets done</div><div class="applies__desc">AI changes how care, operations, documentation, billing, authorization, quality review, or service delivery gets done.</div></div>
+      <div class="applies__item"><div class="applies__tag">The data asset</div><div class="applies__name">What you hold</div><div class="applies__desc">AI depends on product, clinical, workflow, operational, device, or customer data whose value and use rights are unclear.</div></div>
+      <div class="applies__item"><div class="applies__tag">The enterprise story</div><div class="applies__name">What you claim</div><div class="applies__desc">AI is part of the buyer, investor, board, or partner narrative, and it needs to hold up under scrutiny.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE BOOK -->
+<section class="book section" id="book">
+  <div class="container">
+    <div class="book__inner fade-up">
+      <div class="book__label">Forthcoming &middot; Fall 2026</div>
+      <div class="book__title">Built to Survive</div>
+      <div class="book__sub">Building Trusted AI Products and Organizations</div>
+      <p class="book__body">AI products and organizations do not scale on promise alone. Early teams need speed and product judgment. Growing companies need evidence, repeatability, culture, and operating discipline. Scaling organizations need governance, decision rights, investment choices, and trust infrastructure that can survive buyers, boards, regulators, investors, and partners. <strong>The book explores what companies need to build before growth exposes the cracks.</strong></p>
+      <p class="book__meta">Co-authored with Kimberly Bloomston, CPO at 6sense.</p>
+      <a href="speaking.html" class="btn">Bring these ideas to your team</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW I WORK / MY LENS -->
+<section class="about section">
+  <div class="container">
+    <h2 class="fade-up">How I work</h2>
+    <div class="about__body fade-up">
+      <p>I do not come in with a 20-person team or a generic transformation playbook. I start by understanding the specific business, product, data, regulatory, commercial, and operating context. From there, I help leadership decide what needs to change, what can be handled internally, and where outside implementation support may be needed.</p>
+      <p><strong>I am not the implementation team.</strong> I am the senior advisor who helps leadership decide what should be implemented, governed, claimed, and scaled.</p>
+      <p>The background that makes this work: nearly two decades across regulated healthcare technology, product strategy, compliance, privacy, security, data governance, AI-enabled products, SaMD, diagnostics, clinical trial technology, and enterprise healthcare. That lets me translate across functions that often talk past each other.</p>
+    </div>
+    <ul class="about__translate fade-up">
+      <li>Product and regulatory</li>
+      <li>Commercial and compliance</li>
+      <li>Data and legal</li>
+      <li>Clinical and engineering</li>
+      <li>Executives and operators</li>
+      <li>Investors and teams</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BEST FIT / NOT A FIT -->
+<section class="cards">
+  <div class="container">
+    <div class="cards__grid">
+      <div class="card card--yes fade-up">
+        <h3>Best fit</h3>
+        <ul class="card__quals">
+          <li>Healthcare companies adopting AI across products, services, or operations</li>
+          <li>Healthtech, medtech, diagnostics, life sciences, and tech-enabled services adding AI to existing offerings</li>
+          <li>Companies with valuable data but no clear AI product or commercialization strategy</li>
+          <li>AI-enabled companies preparing for enterprise adoption, fundraising, diligence, or partnerships</li>
+          <li>Boards and investors evaluating AI credibility, adoption risk, and value creation</li>
+        </ul>
+      </div>
+      <div class="card card--no fade-up">
+        <h3>Not a fit</h3>
+        <ul class="card__quals">
+          <li>Technical AI implementation or data engineering execution</li>
+          <li>EHR integration delivery</li>
+          <li>Generic AI training or policy templates</li>
+          <li>A consultant to rubber-stamp an existing AI story</li>
+          <li>Work that stays in one functional lane</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- VAHANA HANDOFF -->
+<section class="handoff section">
+  <div class="container">
+    <div class="handoff__inner fade-up">
+      <div class="handoff__label">The commercial practice</div>
+      <h2>Need market-readiness advisory for a regulated healthtech product?</h2>
+      <p>I lead <strong>Vahana Labs</strong>, an advisory practice that helps healthtech and medtech companies get to market in the right order. Vahana Labs focuses on buyer fit, claims, evidence, pilot-to-contract strategy, data readiness, and US healthcare-market fit.</p>
+      <a href="https://vahanalabs.ai" class="btn btn--light">Visit Vahana Labs</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta section">
+  <div class="container">
+    <h2 class="fade-up">AI does not become valuable because it exists.</h2>
+    <p class="fade-up">It becomes valuable when the company knows how to operate it. If your AI work is moving faster than your operating model, I can help you find the gaps, make the decisions, and build the structure needed to scale.</p>
+    <div class="cta__buttons fade-up">
+      <a href="mailto:arvita@vahanalabs.ai?subject=Executive%20advisory" class="btn btn--accent">Discuss executive advisory</a>
+      <a href="advisory.html" class="btn btn--light">See the advisory work</a>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__name">Arvita Tripati &middot; Founder, Vahana Labs</div>
+    <div class="footer__email"><a href="mailto:arvita@vahanalabs.ai">arvita@vahanalabs.ai</a></div>
+    <div class="footer__links">
+      <a href="index.html">Home</a>
+      <a href="advisory.html">Advisory</a>
+      <a href="speaking.html">Speaking &amp; media</a>
+      <a href="https://vahanalabs.ai" target="_blank" rel="noopener">Vahana Labs</a>
+      <a href="https://www.linkedin.com/in/atripati/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://operatinginhealthtech.substack.com" target="_blank" rel="noopener">Substack</a>
+    </div>
+    <div>&copy; 2026 Arvita Tripati &middot; Vahana Labs</div>
+  </div>
+</footer>
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('nav--scrolled', window.scrollY > 10);
+});
+document.querySelectorAll('.accordion__trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const accordion = trigger.parentElement;
+    const isOpen = accordion.classList.toggle('accordion--open');
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+});
+const fadeEls = document.querySelectorAll('.fade-up');
+if ('IntersectionObserver' in window) {
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); fadeObserver.unobserve(entry.target); }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  fadeEls.forEach(el => fadeObserver.observe(el));
+} else {
+  fadeEls.forEach(el => el.classList.add('is-visible'));
+}
+</script>
+</body>
+</html>
